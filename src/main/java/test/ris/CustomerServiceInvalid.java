@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceInvalid {
@@ -30,7 +31,24 @@ public class CustomerServiceInvalid {
 //    }
 
     List<Customer> findByLastName(String lastName) {
-        return customerRepository.findByLastName(lastName);
+        return customerRepository.findByLastName(lastName)
+                .stream().map(this::convertToObject).collect(Collectors.toList());
+    }
+
+    private Customer convertToObject(CustomerEntity e) {
+        return new Customer(e.getId(), e.getFirstName(), e.getLastName());
+    }
+
+    private CustomerEntity convertToEntity(Customer c) {
+        CustomerEntity e = customerRepository.findById(c.getId()).orElse(null);
+        if (e == null) {
+            return null;
+        }
+
+        e.setFirstName(c.getFirstName());
+        e.setLastName(c.getLastName());
+
+        return e;
     }
 
 }

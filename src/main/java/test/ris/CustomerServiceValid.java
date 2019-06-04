@@ -3,6 +3,7 @@ package test.ris;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -27,6 +28,13 @@ public class CustomerServiceValid {
         }
 
         return true;
+    }
+
+    List<Customer> getAllCustomers() {
+        List<Customer> l = new LinkedList<>();
+        customerRepository.findAll().forEach(e -> l.add(convertToObject(e)));
+
+        return l;
     }
 
     List<Customer> findByLastName(String lastName) {
