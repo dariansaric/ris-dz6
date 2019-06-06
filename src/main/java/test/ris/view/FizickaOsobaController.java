@@ -2,14 +2,9 @@ package test.ris.view;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import test.ris.business.FizickaOsoba;
 import test.ris.business.FizickaOsobaService;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/fosoba")
@@ -25,10 +20,10 @@ public class FizickaOsobaController {
     }
 
     @PostMapping()
-    public String postOsoba(@RequestBody FizickaOsoba osoba) throws URISyntaxException {
-        FizickaOsoba o = service.saveFizickaOsoba(osoba);
+    public String postOsoba(@RequestBody FizickaOsoba osoba) {
+        FizickaOsoba o = service.saveNewFizickaOsoba(osoba);
 
-        if (o.equals(osoba)) {
+        if (osoba.equals(o)) {
             return GSON.toJson(o);
         } else {
             return "failed";

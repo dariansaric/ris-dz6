@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import test.ris.data.FizickaOsobaEntity;
 import test.ris.data.FizickaOsobaRepository;
+import test.ris.data.PruzateljUslugaRepository;
 
 
 @Service
 public class FizickaOsobaService {
     @Autowired
     private FizickaOsobaRepository fizickaOsobaRepository;
+    @Autowired
+    private PruzateljUslugaRepository pruzateljUslugaRepository;
 
     private static FizickaOsoba convertToObject(FizickaOsobaEntity e) {
         if (e == null) {
@@ -27,8 +30,19 @@ public class FizickaOsobaService {
         return new FizickaOsobaEntity(o.getOib(), o.getIme(), o.getPrezime(), o.getDatumRodjenja());
     }
 
-    public FizickaOsoba saveFizickaOsoba(FizickaOsoba o) {
+    public FizickaOsoba saveNewFizickaOsoba(FizickaOsoba o) {
+        if (fizickaOsobaRepository.existsById(o.getOib()) || !pruzateljUslugaRepository.existsById(o.getOib())) {
+            return null;
+        }
         return convertToObject(fizickaOsobaRepository.save(convertToEntity(o)));
+    }
+
+    public FizickaOsoba updateFizickaOsoba(FizickaOsoba o) {
+        if (fizickaOsobaRepository.existsById(o.getOib())) {
+            return convertToObject(fizickaOsobaRepository.save(convertToEntity(o)));
+        }
+
+        return null;
     }
 
     public FizickaOsoba getForOib(String oib) {
