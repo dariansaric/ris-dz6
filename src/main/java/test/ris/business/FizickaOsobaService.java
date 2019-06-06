@@ -6,6 +6,8 @@ import test.ris.data.FizickaOsobaEntity;
 import test.ris.data.FizickaOsobaRepository;
 import test.ris.data.PruzateljUslugaRepository;
 
+import java.sql.Date;
+
 
 @Service
 public class FizickaOsobaService {
@@ -31,14 +33,17 @@ public class FizickaOsobaService {
     }
 
     public FizickaOsoba saveNewFizickaOsoba(FizickaOsoba o) {
-        if (fizickaOsobaRepository.existsById(o.getOib()) || !pruzateljUslugaRepository.existsById(o.getOib())) {
+        if (fizickaOsobaRepository.existsById(o.getOib())
+                || !pruzateljUslugaRepository.existsById(o.getOib())
+                || !o.getDatumRodjenja().before(new Date(System.currentTimeMillis()))) {
             return null;
         }
         return convertToObject(fizickaOsobaRepository.save(convertToEntity(o)));
     }
 
     public FizickaOsoba updateFizickaOsoba(FizickaOsoba o) {
-        if (fizickaOsobaRepository.existsById(o.getOib())) {
+        if (fizickaOsobaRepository.existsById(o.getOib())
+                && o.getDatumRodjenja().before(new Date(System.currentTimeMillis()))) {
             return convertToObject(fizickaOsobaRepository.save(convertToEntity(o)));
         }
 

@@ -18,8 +18,6 @@ import java.sql.Date;
 public class RisApplication {
     //todo: napraviti lošu uslugu
     //todo: napisati definicije testova
-    //todo: proširiti customer da ima smislene validacije
-    //todo: napraviti uslugu za dodavanje customer i čitanje po ID
 
     private static final Logger log = LoggerFactory.getLogger(RisApplication.class);
 
