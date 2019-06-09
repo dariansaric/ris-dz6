@@ -1,7 +1,6 @@
 package test.ris.data;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
@@ -52,7 +51,6 @@ public class FizickaOsobaEntity {
     }
 
     @Basic
-    @Column(name = "datumRodjenja", nullable = false)
     public Date getDatumRodjenja() {
         return datumRodjenja;
     }

@@ -35,6 +35,7 @@ public class RisApplication {
                     "Ivo",
                     "Ivić",
                     Date.valueOf("1990-1-1")));
+            r1.save(new PruzateljUslugaEntity("00004", "Ilica 3"));
 
 //            repository.save(new CustomerEntity("Jack", "Bauer", testResults));
 //            repository.save(new CustomerEntity("Chloe", "O'Brian", testResults));

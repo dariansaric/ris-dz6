@@ -1,10 +1,12 @@
 package test.ris.data;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
 import java.util.Objects;
 
-//@Entity
+@Entity
 //@Table(name = "pravnaosoba")
 public class PravnaOsobaEntity {
     private String oib;
@@ -12,6 +14,7 @@ public class PravnaOsobaEntity {
     private Date datumOsnivanja;
     private double pocetniKapital;
 
+    @Id
     public String getOib() {
         return oib;
     }
@@ -29,7 +32,6 @@ public class PravnaOsobaEntity {
     }
 
     @Basic
-    @Column(name = "datumOsnivanja", nullable = false)
     public Date getDatumOsnivanja() {
         return datumOsnivanja;
     }
@@ -39,7 +41,6 @@ public class PravnaOsobaEntity {
     }
 
     @Basic
-    @Column(name = "pocetniKapital", nullable = false, precision = 0)
     public double getPocetniKapital() {
         return pocetniKapital;
     }

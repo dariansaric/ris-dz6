@@ -11,7 +11,7 @@ import java.sql.Date;
 
 
 @Service
-public class FizickaOsobaService {
+public class FizickaOsobaServiceInvalid {
     @Autowired
     private FizickaOsobaRepository fizickaOsobaRepository;
     @Autowired
@@ -36,12 +36,12 @@ public class FizickaOsobaService {
     }
 
     public FizickaOsoba saveNewFizickaOsoba(FizickaOsoba o) {
-        if (fizickaOsobaRepository.existsById(o.getOib())
-                || pravnaOsobaRepository.existsById(o.getOib())
-                || !pruzateljUslugaRepository.existsById(o.getOib())
-                || !o.getDatumRodjenja().before(new Date(System.currentTimeMillis()))) {
-            return null;
-        }
+//        if (fizickaOsobaRepository.existsById(o.getOib())
+//                || pravnaOsobaRepository.existsById(o.getOib())
+//                || !pruzateljUslugaRepository.existsById(o.getOib())
+//                || !o.getDatumRodjenja().before(new Date(System.currentTimeMillis()))) {
+//            return null;
+//        }
         return convertToObject(fizickaOsobaRepository.save(convertToEntity(o)));
     }
 
@@ -55,6 +55,6 @@ public class FizickaOsobaService {
     }
 
     public FizickaOsoba getForOib(String oib) {
-        return convertToObject(fizickaOsobaRepository.findById(oib).orElse(null));
+        return convertToObject(fizickaOsobaRepository.findById(oib).get());
     }
 }
